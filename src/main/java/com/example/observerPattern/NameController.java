@@ -1,6 +1,7 @@
 package com.example.observerPattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@ConditionalOnProperty(name = "observer-pattern-switch", havingValue = "on")
 @Service
 @EnableScheduling
 public class NameController {
@@ -31,19 +33,19 @@ public class NameController {
     public void sendNames(Name name){
         switch(name){
             case MAHMOOD -> {
-                eventSource.addObserver(mahmood);
+                eventSource.registerObserver(mahmood);
                 eventSource.notifyObservers(mahmood);
             }
             case NABI -> {
-                eventSource.addObserver(nabi);
+                eventSource.registerObserver(nabi);
                 eventSource.notifyObservers(nabi);
             }
             case AHMAD -> {
-                eventSource.addObserver(ahmad);
+                eventSource.registerObserver(ahmad);
                 eventSource.notifyObservers(ahmad);
             }
             case KARIM -> {
-                eventSource.addObserver(karim);
+                eventSource.registerObserver(karim);
                 eventSource.notifyObservers(karim);
             }
             default -> System.out.println("we don't support service");

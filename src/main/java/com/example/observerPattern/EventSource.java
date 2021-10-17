@@ -11,12 +11,18 @@ public class EventSource {
     private final Set<Observer> observers = new HashSet<>();
 
     public void notifyObservers(NameService event) {
-        observers.forEach(observer -> observer.update(event));
+        observers.forEach(Observer::update);
     }
 
-    public void addObserver(Observer observer) {
+    public void registerObserver(Observer observer) {
         if(!exists(observer)){
             observers.add(observer);
+        }
+    }
+
+    public void unregisterObserver(Observer observer){
+        if(!exists(observer)){
+            observers.remove(observer);
         }
     }
 
